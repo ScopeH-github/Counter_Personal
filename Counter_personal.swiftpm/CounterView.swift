@@ -3,6 +3,17 @@ import SwiftUI
 struct CounterView: View {
     @State var count = 0
     var body: some View {
+        CounterButton(count: $count)
+            .padding()
+        ResetButton(count: $count)
+            .buttonStyle(.bordered)
+            .padding()
+    }
+}
+
+struct CounterButton: View {
+    @Binding var count: Int
+    var body: some View {
         Button(action: {
             count = increaseCount(count)
         }) {
@@ -10,7 +21,13 @@ struct CounterView: View {
                 .font(.system(size: 85))
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }.padding()
+        }
+    }
+}
+
+struct ResetButton: View {
+    @Binding var count: Int
+    var body: some View {
         Button(action: {
             count = resetToZero(count)
         }) {
@@ -18,17 +35,5 @@ struct CounterView: View {
                 .padding()
                 .frame(maxWidth: .infinity)
         }
-            .buttonStyle(.bordered)
-            .padding()
-    }
-    
-    func increaseCount(_ number: Int) -> Int {
-        var count = number
-        count += 1
-        return count
-    }
-    
-    func resetToZero(_ number: Int) -> Int {
-        return 0
     }
 }
